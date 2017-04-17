@@ -1,0 +1,78 @@
+$border-style: 1px solid #cbcbcb;
+$gray1-color: #cbcbcb;
+$gray2-color: #e0e0e0;
+$red1-color: #da4453;
+$dark-gray1-color: #2d3e50;
+$green1-color: #18d8a9;
+$white-color: #fff;
+$black-color: #000;
+
+:global {
+  body {
+    font-size: 16px;
+  }
+
+  .container {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  // Table
+  .table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    border: $border-style;
+
+    td, th {
+      border-left: $border-style;
+      border-width: 0 0 0 1px;
+      font-size: inherit;
+      margin: 0;
+      overflow: visible;
+      padding: 0.5rem 1rem;
+    }
+
+    thead {
+      background-color: #e0e0e0;
+      color: #000;
+      text-align: left;
+      vertical-align: bottom;
+    }
+  }
+
+  .button {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    background-color: $gray2-color;
+    color: $dark-gray1-color;
+    border: none;
+  }
+
+
+.form {
+  fieldset {
+    margin: 0;
+    padding: 0.35rem 0 0.75rem;
+    border: 0;
+  }
+
+  input[type='text'],
+  textarea,
+  label {
+    display: block;
+    margin: 0.25rem 0;
+    width: 100%;
+  }
+
+  .error {
+    color: $red1-color;
+  }
+}
+}
