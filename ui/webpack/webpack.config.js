@@ -1,40 +1,45 @@
 const webpack = require('webpack');
 const path = require('path');
-const autoprefixer = require('autoprefixer');
 const config = require('../config');
 
 module.exports = {
   devtool: 'eval',
   entry: [
+    // patch hot-loader
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://${config.host}:${config.clientPort}`,
+    // ยังจำได้ไหม webpack-der-server เราทำได้ทั้ง hot และ inline
+    // แต่เราต้องการแค่ hot module replacement
+    // เราไม่ต้องการ inline ที่จะแอบทะลึ่งไป reload เพจของเรา
+    // เราจึงบอกว่าใช้ hot เท่านั้นนะ
     'webpack/hot/only-dev-server',
-    './ui/common/theme/elements.scss',
-    './ui/client/index.js'
+    './ui/theme/elements.scss',
+    './ui/index.js'
   ],
-  output: {
-    publicPath: `http://${config.host}:${config.clientPort}/static/`,
-    path: path.join(__dirname, 'static'),
-    filename: 'bundle.js'
-  },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ],
+  output: {
+    publicPath: `/static/`,
+    path: path.join(__dirname, 'static'),
+    filename: 'bundle.js'
+  },
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: [
-          {
-            loader: 'babel-loader',
-            query: {
-              babelrc: false,
-              presets: ["es2015", "stage-0", "react"]
-            }
-          }
+          'babel-loader'
         ]
       },
+      {
+  test: /\.(png|jpeg|ttf|...)$/,
+  use: [
+   { loader: 'url-loader', options: { limit: 8192 } }
+   // limit => file.size =< 8192 bytes ? DataURI : File
+  ]
+},
       {
         test: /\.css$/,
         loaders: [
@@ -51,7 +56,7 @@ module.exports = {
             query: {
               sourceMap: true,
               module: true,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
+              localIdentName: '[local]___[hash:base64:5]'
             }
           },
           {
@@ -61,7 +66,9 @@ module.exports = {
               sourceMap: true
             }
           },
-          'postcss-loader'
+          {
+             loader: 'postcss-loader'
+           }
         ]
       }
     ]

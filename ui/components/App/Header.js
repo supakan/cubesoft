@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import styles from './Header.scss'
-
+var logo = require('./logo2.png');
 export default class Header extends Component {
   render() {
     return (
       <header className={styles['header']}>
+      <img width="140" height="80"
+					src={logo} alt=""/>
         <nav>
         <Link
           to={{ pathname: '/' }}

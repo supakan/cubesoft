@@ -9,10 +9,6 @@ class PagesContainer extends Component {
     onLoadPages: PropTypes.func.isRequired
   }
 
-  static need = [
-    loadPages
-  ]
-
   shouldComponentUpdate(nextProps) {
     return this.props.pages !== nextProps.pages;
   }
